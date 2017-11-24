@@ -20,7 +20,10 @@
     .content{
         height: 100px;
         line-height: 100px;
+    }
+    .content-show{
         display: none;
+
     }
     .tab-li{
         background: yellowgreen;
@@ -35,34 +38,39 @@
     <ul class="tab" >
         <li class="tab-li">
             <div class="title">标题一</div>
-            <div class="content">1111111111111111</div>
+            <div class="content content-show">1111111111111111</div>
         </li>
         <li class="tab-li">
             <div class="title">标题二</div>
-            <div class="content">1111111111111111</div>
+            <div class="content content-show">1111111111111111</div>
         </li>
         <li class="tab-li">
             <div class="title">标题三</div>
-            <div class="content">1111111111111111</div>
+            <div class="content content-show">1111111111111111</div>
         </li>
         <li class="tab-li">
             <div class="title">标题四</div>
-            <div class="content">1111111111111111</div>
+            <div class="content content-show">1111111111111111</div>
         </li>
         <li class="tab-li">
             <div class="title">标题五</div>
-            <div class="content">1111111111111111</div>
+            <div class="content content-show">1111111111111111</div>
         </li>
     </ul>
 </body>
 <script src="jquery-1.12.4.min.js"></script>
 <script>
-    $('.tab-li').hover(function(){
+    /*$('.tab-li').hover(function(){
         $(this).find('.content').css("display","block");
     },function(){
                 $(this).find('.content').css("display","none");
 
-    });
+    });*/
+
+    $('.tab-li').on('mouseenter',function(){
+        $(this).find('.content').css('display','block');
+        $(this).siblings().find('.content').css('display','none');
+    })
 
 </script>
 </html>
