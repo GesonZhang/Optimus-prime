@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    ul,li{
+        list-style: none;
+    }
+    .tab{
+        width:300px;
+        margin:0 auto;
+    }
+    .title{
+        height:40px;
+        line-height: 40px;
+        width: 300px;
+    }
+    .content{
+        height: 100px;
+        line-height: 100px;
+        display: none;
+    }
+    .tab-li{
+        background: yellowgreen;
+        width: 300px;
+        font-size: 33px;
+        border-bottom: solid 1px #666;
+        text-align: center;
+    }
+
+</style>
+<body>
+    <ul class="tab" >
+        <li class="tab-li">
+            <div class="title">标题一</div>
+            <div class="content">1111111111111111</div>
+        </li>
+        <li class="tab-li">
+            <div class="title">标题二</div>
+            <div class="content">1111111111111111</div>
+        </li>
+        <li class="tab-li">
+            <div class="title">标题三</div>
+            <div class="content">1111111111111111</div>
+        </li>
+        <li class="tab-li">
+            <div class="title">标题四</div>
+            <div class="content">1111111111111111</div>
+        </li>
+        <li class="tab-li">
+            <div class="title">标题五</div>
+            <div class="content">1111111111111111</div>
+        </li>
+    </ul>
+</body>
+<script src="jquery-1.12.4.min.js"></script>
+<script>
+    $('.tab-li').hover(function(){
+        $(this).find('.content').css("display","block");
+    },function(){
+                $(this).find('.content').css("display","none");
+
+    });
+
+</script>
+</html>
