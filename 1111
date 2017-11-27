@@ -1,0 +1,121 @@
+{%extends 'c_base.tpl'%}
+
+{%block name="data_modifier"%}
+
+{%/block%}
+
+{%block name='content'%}
+<style data-merge>
+    /* 样式
+     * 如果含有smarty语句，请另加一个style标签，并去掉data-marge属性
+     */
+    .c-tabs-nav-selected {
+        font-weight:bold;
+    }
+    .op-search-index {
+        text-align:right;
+        color:#999;
+        float:right;
+    }
+    .op-hotnews-list {
+        cursor:pointer;
+        border-bottom:1px solid #d9d9d9;
+    }
+    .op-hotnews-list-title{
+        padding: 10px 0;
+    }
+    .op-hotnews-list-title a {
+        text-decoration:none;
+    }
+    .op-hotnews-list-title a:hover {
+        text-decoration: underline;
+    }
+    .op-hotnews-content{
+        padding-bottom:10px;
+    }
+    .op-show-hide{
+        display:none;
+    }
+    .op-want-more {
+        margin-top:10px;
+    }
+
+</style>
+
+<div class="c-tabs test-tabs">
+    <div class="c-tabs-nav" data-click="{'fm': 'beha'}">
+        <div class="c-tabs-nav-view">
+            <ul class="c-tabs-nav-more">
+                {%if $tplData.newsNavs.pointNav[1]%}
+                {%foreach $tplData.newsNavs.pointNav as $item%}
+                {%if !$item@first%}<li class="c-tabs-nav-sep" style="visibility:hidden"></li>{%/if%}
+                <li class="c-tabs-nav-li OP_LOG_BTN{%if $item.first%} c-tabs-nav-selected{%/if%}">{%$item.label%}</li>
+                {%/foreach%}
+                {%else%}
+                <li class="c-tabs-nav-li OP_LOG_BTN c-tabs-nav-selected">{%$tplData.newsNavs.pointNav[0].label%}</li>
+                {%/if%}
+            </ul>
+        </div>
+    </div>
+    {%foreach $tplData.newsNavs.pointNav as $item%}
+    <div class="c-tabs-content" {%if !$item.first%}style="display:none"{%/if%} >
+
+    <ul class='op-hotnews-body'>
+
+        {%foreach array_slice($item.newsData, 0, 5) as $news%}
+        <li class='op-hotnews-list'>
+            <div class='op-hotnews-list-title'>
+                <a href='{%fe_fn_c_build_url wd="`$news.newsTitle`"%}' target="_blank" class='OP_LOG_LINK' data-click="{fm:'beha'}">
+                    {%if $news@index==0%}<span class='c-index c-index-hot1'>1</span>
+                    {%elseif $news@index==1%}<span class='c-index c-index-hot2'>2</span>
+                    {%elseif $news@index==2%}<span class='c-index c-index-hot3'>3</span>
+                    {%else%}<span class='c-index'>{%$news@index+1%}</span>{%/if%}
+                    {%$news.newsTitle%}
+                </a>
+                <div class='op-search-index'>搜索指数:{%$news.searchIndex%}
+                    <i class="opr-toplist-st c-icon {%if $news.change > 0%}c-icon-up{%elseif $news.change <0 %}c-icon-down{%else%}c-icon-stable{%/if%}"></i>
+                </div>
+            </div>
+            {%if $news@index==0%}
+            <div class = 'op-hotnews-content OP_LOG_LINK'>
+                {%$news.newsContent|truncate:120:'...':true%}
+            </div>
+            {%else%}<div class = 'op-hotnews-content op-show-hide OP_LOG_LINK'>
+                {%$news.newsContent|truncate:120:'...':true%}
+            </div>{%/if%}
+        </li>
+        {%/foreach%}
+
+    </ul>
+    <div class='op-want-more'> <a target="_blank" href="{%$item.labelUrl%}">更多{%$item.label%}>>
+        </a></div>
+</div>
+{%/foreach%}
+<div class='f13'></div>
+</div>
+<script>
+    A.setup(function(){
+        var _this = this,
+            $newsList = _this.find('.op-hotnews-list'),
+            $newsTitle = _this.find('.op-hotnews-list-title'),
+            $timer = '';
+
+        $newsList.on('click',function(){
+            var me = this,
+                $newsUrl =$(me).children().find("a").attr("href");
+            window.open($newsUrl);
+
+        });
+        $newsList.on('mouseenter',function(){
+            $(this).find('.op-hotnews-content').css('display','block');
+            $(this).siblings().find('.op-hotnews-content').css('display','none');
+
+        });
+        A.use('tabs5', function(){
+            A.ui.tabs5(_this.qq('c-tabs'));
+        });
+    });
+
+</script>
+
+{%/block%}
