@@ -3,8 +3,8 @@
  */
 setup(function(){
     var _this = this,
-        $newsList = _this.find('.op-hotnews-list'),
-        $newsTitle = _this.find('.op-hotnews-list-title'),
+        $newsList = _this.find('.hotnews-list'),
+        $newsTitle = _this.find('.hotnews-list-title'),
         $timer = '';
 
     $newsList.on('click',function(){
@@ -15,7 +15,7 @@ setup(function(){
     });
     /* $newsList.on('mouseenter',function(){
      var oTr = $(this).children().last();
-     var oTd = $(this).siblings().find('.op-hotnews-content');
+     var oTd = $(this).siblings().find('.hotnews-content');
      setTimeout(function(){
      $(oTr).slideDown('slow');
      },500)
@@ -23,15 +23,15 @@ setup(function(){
 
     /* $newsTitle.on('mouseenter',function(){
      var oTr = $(this).next();
-     //var oTd = $(this).parent('li').siblings().find('.op-hotnews-content');
+     //var oTd = $(this).parent('li').siblings().find('.hotnews-content');
      //$(oTd).css('display','none');
      $timer=setTimeout(function(){
      $(oTr).slideDown('fast');
      },500)
      });*/
     $newsList.on('mouseenter',function(){
-        $(this).find('.op-hotnews-content').css('display','block');
-        $(this).siblings().find('.op-hotnews-content').css('display','none');
+        $(this).find('.hotnews-content').css('display','block');
+        $(this).siblings().find('.hotnews-content').css('display','none');
 
     });
     /*$newsTitle.on('mouseleave',function(){
