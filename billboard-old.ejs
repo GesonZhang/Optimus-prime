@@ -1,8 +1,7 @@
-{%extends '_base.tpl'%}
 
-{%block name="data_modifier"%}
+{%block name="数据处理"%}
 	<script>
-    	console.log({%json_encode($tplData.newsNavs.pointNav)%})
+    	console.log({%json_encode(dataName)%})
     </script>
     
 
@@ -10,58 +9,55 @@
 
 {%block name='content'%}
 <style data-merge>
-    /* 样式 
-     * 如果含有smarty语句，请另加一个style标签，并去掉data-marge属性
-     */
      .-tabs-nav-selected {
     	font-weight:bold;	
       }
-     .op-search-index {
+     .-search-index {
       	text-align:right;
        	color:#999;
         float:right;
       }
-      .op-hotnews-list {
+      .-hotnews-list {
       	cursor:pointer;
         border-bottom:1px solid #d9d9d9;
       }
-      .op-hotnews-list-title{
+      .-hotnews-list-title{
       	padding: 10px 0;
       }
-      .op-hotnews-list-title a {
+      .-hotnews-list-title a {
       	text-decoration:none;
       }
-     .op-hotnews-list-title a:hover {
+     .-hotnews-list-title a:hover {
         text-decoration: underline;
 	  }
-      .op-hotnews-content{
+      .-hotnews-content{
       	padding-bottom:10px;
       }
-      .op-show-hide{
+      .-show-hide{
       	display:none;
       }
-    .op-want-more {
+    .-want-more {
       	margin-top:10px;
       }
      
 </style>
 
-<div class="-tabs test-tabs">
+<div class=" test-tabs">
     <div class="-tabs-nav">
         <div class=-tabs-nav-view">
             <ul class="-tabs-nav-more">
-                {%if $tplData.newsNavs.pointNav[1]%}
-                {%foreach $tplData.newsNavs.pointNav as $item%}
+                {%if $data.newsNavs.pointNav[1]%}
+                {%foreach $data.newsNavs.pointNav as $item%}
                     {%if !$item@first%}<li class="-tabs-nav-sep" style="visibility:hidden"></li>{%/if%}
                     <li class="-tabs-nav-li O_L_BTN{%if $item.first%} -tabs-nav-selected{%/if%}">{%$item.label%}</li>
                 {%/foreach%}
             {%else%}
-            <li class="-tabs-nav-li OP_LOG_BTN -tabs-nav-selected">{%$tplData.newsNavs.pointNav[0].label%}</li>
+            <li class="-tabs-nav-li -tabs-nav-selected">{%$data.newsNavs.pointNav[0].label%}</li>
             {%/if%}
             </ul>
         </div>
     </div>
-    {%foreach $tplData.newsNavs.pointNav as $item%}
+    {%foreach $data.newsNavs.pointNav as $item%}
     	<div class="-tabs-content" {%if !$item.first%}style="display:none"{%/if%} >
         
     	<ul class='op-hotnews-body'>
@@ -69,25 +65,25 @@
        {%foreach array_slice($item.newsData, 0, 5) as $news%}
                 <li class='op-hotnews-list'>
                   <div class='op-hotnews-list-title'>                   
-                            <a href='{%fe_fn_c_build_url wd="`$news.newsTitle`"%}' target="_blank">
-                                {%if $news@index==0%}<span class='-index-index-hot1'>1</span>
-                                {%elseif $news@index==1%}<span class='-index -index-hot2'>2</span>
-                                {%elseif $news@index==2%}<span class='-index -index-hot3'>3</span>
+                            <a href='{%wd="`$news.newsTitle`"%}' target="_blank">
+                                {%if $news@index==0%}<span class='index1'>1</span>
+                                {%elseif $news@index==1%}<span class='index2'>2</span>
+                                {%elseif $news@index==2%}<span class='index3'>3</span>
                                 {%else%}<span class='-index'>{%$news@index+1%}</span>{%/if%}
                                 {%$news.newsTitle%}
                              </a>
-                        <div class='op-search-index'>搜索指数:{%$news.searchIndex%}
-                            <i class="opr-toplist-st -icon {%if $news.change > 0%}icon-up{%elseif $news.change <0 %}icon-down{%else%}-icon-stable{%/if%}"></i>
+                        <div class='-search-index'>指数:{%$news.searchIndex%}
+                            <i class="-toplist-st -icon {%if $news.change > 0%}icon-up{%elseif $news.change <0 %}icon-down{%else%}-icon-stable{%/if%}"></i>
                         </div>
                    </div>
-                  <div class = 'op-hotnews-content op-show-hide'>
+                  <div class = 'op-hotnews-content show-hide'>
                             {%$news.newsContent|truncate:120:'...':true%}
                   </div>
                   </li>
 		{%/foreach%}
          
         </ul>
-         <div class='op-want-more'> <a target="_blank" href="{%$item.labelUrl%}">更多{%$item.label%}>>
+         <div class='want-more'> <a target="_blank" href="{%$item.labelUrl%}">更多{%$item.label%}>>
          </a></div>
      </div>
      {%/foreach%}
@@ -95,8 +91,8 @@
 <script>
     A.setup(function(){
         var _this = this,
-        	$newsList = _this.find('.op-hotnews-list'),
-           	$newsTitle = _this.find('.op-hotnews-list-title'),
+        	$newsList = _this.find('.hotnews-list'),
+           	$newsTitle = _this.find('.hotnews-list-title'),
             $timer = '';
           
        	$newsList.on('click',function(){
@@ -116,7 +112,7 @@
         $newsTitle.on('mouseover',function(event){
         
         		var oTr = $(this).next();
-               var oTd = $(this).parent('li').siblings().find('.op-hotnews-content');
+               var oTd = $(this).parent('li').siblings().find('.hotnews-content');
                if(event.target = $(this)){
                console.log(event.target)
                
@@ -127,18 +123,18 @@
         });
       /*$newsList.on('mouseenter',function(){
        		var oTr = $(this).children().last();
-            var oTd = $(this).siblings().find('.op-hotnews-content');
+            var oTd = $(this).siblings().find('.hotnews-content');
            	setTimeout(function(){
-            	//$(oTr).removeClass('op-show-hide');
+            	//$(oTr).removeClass('show-hide');
                 $(oTd).css('display','none');
             	$(oTr).slideDown('slow');
                 console.log(oTd);
             },1000)
-            //$(oTr).removeClass('op-show-hide');        
+            //$(oTr).removeClass('oshow-hide');        
     	});*/
        /*$timer=setTimeout(function(){
             	 $(oTr).css('display','block');
-                 $(oTr).siblings().children().find('.op-hotnews-content').css('display','none');
+                 $(oTr).siblings().children().find('.hotnews-content').css('display','none');
             },500) */
         
         
