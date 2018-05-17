@@ -1,45 +1,11 @@
-{%extends 'base.tpl'%}
-
 {%block name=""%}
 
 {%/block%}
 
 {%block name='content'%}
 
-<style data-merge>
-    /* 样式 
-     * 如果含有smarty语句，请另加一个style标签，并去掉data-marge属性
-     */
-     .-nav-selected {
-    	font-weight:bold;	
-      }
-     .op-search-index {
-      	text-align:right;
-       	color:#999;
-        float:right;
-      }
-      .op-hotnews-list {
-      	cursor:pointer;
-        border-bottom:1px solid #d9d9d9;
-      }
-      .op-hotnews-list-title{
-      	padding: 10px 0;
-      }
-      .op-hotnews-list-title a {
-      	text-decoration:none;
-      }
-     .op-hotnews-list-title a:hover {
-        text-decoration: underline;
-	  }
-      .op-hotnews-content{
-      	padding-bottom:10px;
-      }
-      .op-show-hide{
-      	display:none;
-      }
-    .op-want-more {
-      	margin-top:10px;
-      }
+<style>
+   
      
 </style>
 
@@ -47,7 +13,7 @@
     <div class="tabs-nav">
         <div class="-nav-view">
             <ul class="-nav-more">
-                {%if $tplData.newsNavs.pointNav[1]%}
+                {%if $data.newsNavs.pointNav[1]%}
                 {%foreach $tplData.newsNavs.pointNav as $item%}
                     {%if !$item@first%}<li class="s-nav-sep" style="visibility:hidden"></li>{%/if%}
                     <li class="-nav-li OP_LOG_BTN{%if $item.first%} c-tabs-nav-selected{%/if%}">{%$item.label%}</li>
